@@ -27,7 +27,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\""
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/codex-posttooluse.sh\""
           }
         ],
         "matcher": "Edit|Write|MultiEdit|NotebookEdit"
@@ -36,43 +36,10 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\"",
-            "if": "Bash(git commit:*)",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/codex-posttooluse.sh\"",
             "asyncRewake": true,
-            "rewakeMessage": "Background security review of commit — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply:",
-            "rewakeSummary": "Commit security review found issues"
-          },
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\"",
-            "if": "Bash(git push:*)",
-            "asyncRewake": true,
-            "rewakeMessage": "Background security review of pushed commits not yet reviewed — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply:",
-            "rewakeSummary": "Push security review found issues"
-          },
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\"",
-            "if": "Bash(gt create:*)",
-            "asyncRewake": true,
-            "rewakeMessage": "Background security review of commit — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply:",
-            "rewakeSummary": "Commit security review found issues"
-          },
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\"",
-            "if": "Bash(gt modify:*)",
-            "asyncRewake": true,
-            "rewakeMessage": "Background security review of commit — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply:",
-            "rewakeSummary": "Commit security review found issues"
-          },
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/sg-python.sh\" \"${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py\"",
-            "if": "Bash(gt submit:*)",
-            "asyncRewake": true,
-            "rewakeMessage": "Background security review of pushed commits not yet reviewed — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply:",
-            "rewakeSummary": "Push security review found issues"
+            "rewakeMessage": "Background security review of a commit or push — address or acknowledge any findings, then continue with the user's original request or continue waiting for their reply:",
+            "rewakeSummary": "Commit or push security review found issues"
           }
         ],
         "matcher": "Bash"

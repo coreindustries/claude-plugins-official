@@ -1,5 +1,11 @@
 # security-guidance
 
+The `PostToolUse` hooks include a Codex compatibility adapter. Codex runs one
+Bash router instead of Claude Code's per-command `if` filters, and clean/no-op
+hooks emit `{}` so every successful post-hook returns valid JSON. The existing
+Python handler still routes commit, push, `gt create`, `gt modify`, and
+`gt submit` reviews.
+
 Security review for Claude-generated code. Three layers:
 
 1. **Pattern warnings** — instant regex-based reminders on `Edit`/`Write` for ~25 known-dangerous patterns (`yaml.load`, `torch.load(weights_only=False)`, `pickle.load` on untrusted data, raw `innerHTML`, hardcoded secrets, etc.).
