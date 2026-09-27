@@ -14,24 +14,24 @@ WRAPPER = PLUGIN_ROOT / "hooks" / "codex-posttooluse.sh"
 
 class CodexHookManifestTests(unittest.TestCase):
     def test_bash_uses_one_router_without_claude_if_filters(self) -> None:
-        manifest = json.loads((PLUGIN_ROOT / "hooks" / "hooks.json").read_text())
+        manifest = json.loads((PLUGIN_ROOT / "hooks" / "codex-hooks.json").read_text())
         bash_groups = [
             group
             for group in manifest["hooks"]["PostToolUse"]
-            if group.get("matcher") == "Bash"
+            if group.get("matcher") == "^Bash$"
         ]
 
         self.assertEqual(len(bash_groups), 1)
         self.assertEqual(len(bash_groups[0]["hooks"]), 1)
         self.assertNotIn("if", bash_groups[0]["hooks"][0])
-        self.assertIn("codex-posttooluse.sh", bash_groups[0]["hooks"][0]["command"])
+        self.assertIn("hook-output.py", bash_groups[0]["hooks"][0]["command"])
 
 
 class CodexPostToolUseWrapperTests(unittest.TestCase):
     def run_hook(self, event: dict) -> subprocess.CompletedProcess[str]:
         with tempfile.TemporaryDirectory() as state_dir:
             fake_sdk = Path(state_dir) / "claude_agent_sdk.py"
-            fake_sdk.write_text("# prevents dependency bootstrapping during tests\n")
+            fake_sdk.write_text("# prevents the test from bootstrapping dependencies\n")
             env = {
                 **os.environ,
                 "CLAUDE_PLUGIN_ROOT": str(PLUGIN_ROOT),
@@ -68,7 +68,7 @@ class CodexPostToolUseWrapperTests(unittest.TestCase):
                 "hook_event_name": "PostToolUse",
                 "tool_name": "Edit",
                 "tool_input": {
-                    "file_path": "/tmp/example.py",
+                    "file_path": "/private/tmp/example.py",
                     "new_string": "answer = 42\n",
                 },
             }
