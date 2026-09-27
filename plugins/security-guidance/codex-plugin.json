@@ -1,0 +1,31 @@
+{
+  "name": "security-guidance-codex",
+  "version": "2.0.8",
+  "description": "Codex-compatible packaging of Anthropic's security-guidance hooks.",
+  "author": {
+    "name": "Anthropic, with a local Codex compatibility adapter"
+  },
+  "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/security-guidance",
+  "repository": "https://github.com/anthropics/claude-plugins-official",
+  "license": "Apache-2.0",
+  "keywords": [
+    "security",
+    "code-review",
+    "hooks",
+    "codex"
+  ],
+  "interface": {
+    "displayName": "Security Guidance for Codex",
+    "shortDescription": "Security checks on edits, commits, pushes, and completed turns.",
+    "longDescription": "Runs Anthropic's security-guidance checks through a Codex-compatible hook adapter that always returns valid hook JSON.",
+    "developerName": "Anthropic and local Codex adapter",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Security review",
+      "Post-tool hooks"
+    ],
+    "defaultPrompt": [
+      "Review my current changes for security issues."
+    ]
+  }
+}

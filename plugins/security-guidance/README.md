@@ -1,10 +1,9 @@
 # security-guidance
 
-The `PostToolUse` hooks include a Codex compatibility adapter. Codex runs one
-Bash router instead of Claude Code's per-command `if` filters, and clean/no-op
-hooks emit `{}` so every successful post-hook returns valid JSON. The existing
-Python handler still routes commit, push, `gt create`, `gt modify`, and
-`gt submit` reviews.
+Claude Code uses the native upstream hooks. All five hook events also support
+Codex through a separately packaged manifest and protocol adapter. See
+[CODEX_COMPATIBILITY.md](CODEX_COMPATIBILITY.md) for packaging, behavior, tests,
+and known coverage limits.
 
 Security review for Claude-generated code. Three layers:
 
